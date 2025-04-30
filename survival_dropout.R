@@ -38,15 +38,12 @@ surv_data <- surv_data |>
   mutate(prior_clicks = replace_na(prior_clicks, 0))
 
 # Cox model training
-cox_model <- coxph(Surv(time, event) ~ 
-                     age_band + gender + highest_education + 
-                     imd_band + prior_clicks,
+cox_model <- coxph(Surv(time, event) ~ age_band + gender + highest_education + imd_band + prior_clicks,
                    data = surv_data)
 
 # Random survival forest model training
 surv_data_rf <- surv_data |>
-  select(gender, region, highest_education, imd_band, age_band,
-         disability, prior_clicks, time, event) |>
+  select(gender, region, highest_education, imd_band, age_band, disability, prior_clicks, time, event) |>
   mutate(
     age_band          = as.factor(age_band),
     gender            = as.factor(gender),
@@ -56,10 +53,10 @@ surv_data_rf <- surv_data |>
   na.omit()
 
 task <- TaskSurv$new(
-  id = "oulad_surv",
+  id      = "oulad_surv",
   backend = surv_data_rf,
-  time = "time",
-  event = "event")
+  time    = "time",
+  event   = "event")
 
 learner_cox <- lrn("surv.coxph")
 learner_rsf <- lrn("surv.rfsrc")
