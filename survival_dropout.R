@@ -28,7 +28,7 @@ surv_data <- oulad::student |>
 vle_agg <- oulad::student_vle |>
   left_join(surv_data |> select(id_student, code_module, code_presentation, time),
             by = c("id_student", "code_module", "code_presentation")) |>
-  filter(date < time) |>  
+  filter(date == time) |>  
   group_by(id_student, code_module, code_presentation) |>
   summarise(prior_clicks = sum(sum_click), .groups = "drop")
 
