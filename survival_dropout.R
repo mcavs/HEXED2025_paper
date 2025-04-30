@@ -2,6 +2,7 @@
 install.packages(c("mlr3", "mlr3proba", "mlr3learners", "mlr3measures", "mlr3verse", "survival", "randomForestSRC", "devtools", "dplyr", "lubridate"))
 library(devtools)
 devtools::install_github("jakubkuzilek/oulad")
+library(oulad)
 library(survival)
 library(dplyr)
 library(lubridate)
